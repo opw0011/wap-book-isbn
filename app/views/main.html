@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<!--<div class="jumbotron">
   <h1>'Allo, 'Allo!</h1>
   <p class="lead">
     <img src="images/yeoman.png" alt="I'm Yeoman"><br>
@@ -20,4 +20,24 @@
 
   <h4>Karma</h4>
   <p>Spectacular Test Runner for JavaScript.</p>
+</div>-->
+
+
+<div class="row">
+  <h3>ISBN Lookup</h3>
+
+  <span>try: 9781119073550</span>
+  <div class="input-group">
+    <input type="text" class="form-control" id="exampleInputAmount" placeholder="Search ISBN" ng-model="query.isbn">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="search(query.isbn)">Search</button>
+    </span>
+  </div>
 </div>
+
+
+
+<div class="row" ng-show="book">
+  <pre> {{ book | json:4 }} </pre>
+</div>
+
