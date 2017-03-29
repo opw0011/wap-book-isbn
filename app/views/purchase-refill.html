@@ -1,39 +1,56 @@
-<!--<p>This is the purchase-refill view.</p>-->
-<!--<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-    <span>Bookstores list</span>
-  </div>
-</md-toolbar>-->
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Hints:</strong> Select a bookstore to view the inventory
+</div>
 
 <md-toolbar class="md-table-toolbar md-default" ng-show="!options.rowSelection || !selected.length">
   <div class="md-toolbar-tools">
     <span>Bookstores list</span>
     <span flex></span>
     <md-button class="md-icon-button" ng-click="loadStuff()">
-      <md-icon>refresh</md-icon>
+      <!--<md-icon>refresh</md-icon>-->
+      <i class="fa fa-refresh" aria-hidden="true"></i>
     </md-button>
-    <md-button class="md-icon-button">
-      <md-icon>filter_list</md-icon>
+    <md-button class="md-icon-button" ng-click="filter.show = !filter.show">
+      <i class="fa fa-search" aria-hidden="true"></i>
     </md-button>
-    <md-button class="md-icon-button">
+    <!--<md-button class="md-icon-button">
       <md-icon>more_vert</md-icon>
+    </md-button>-->
+  </div>
+</md-toolbar>
+
+<md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length">
+  <div class="md-toolbar-tools">
+    <!--<md-icon>search</md-icon>-->
+
+    <!--<i class="fa fa-search" aria-hidden="true"></i>-->
+
+    <form flex name="filter.form">
+      <!--<input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search">-->
+        <md-input-container md-no-float class="md-block">
+          <input type="text" ng-model="query.filter" placeholder="Search">
+        </md-input-container>
+    </form>
+    <md-button class="md-icon-button" ng-click="filter.show = !filter.show; query.filter = ''">
+      <!--<md-icon>close</md-icon>-->
+      <!--close-->
+      <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+
     </md-button>
   </div>
 </md-toolbar>
 
-<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Hints:</strong> Select a bookstore to view the inventory
-</div>
 
 <!-- exact table from live demo -->
 <md-table-container>
-  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+  <!--<table md-table md-row-select multiple ng-model="selected" md-progress="promise">-->
+  <table md-table md-progress="promise">
     <thead md-head md-order="query.order" md-on-reorder="getDesserts">
       <tr md-row>
-        <th md-column md-order-by="nameToLower"><span>Bookstore ID</span></th>
-        <th md-column><span>Tel</span></th>
-        <th md-column><span>Address</span></th> 
+        <th md-column md-order-by="id"><span>Bookstore ID</span></th>
+        <th md-column md-order-by="phone"><span>Tel</span></th>
+        <th md-column md-order-by="country"><span>Address</span></th> 
         <th md-column><span>Status</span></th>                               
         <th md-column><span>Actions</span></th>                       
         <!--<th md-column md-numeric>Fat (g)</th>
@@ -45,7 +62,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="bookstore" md-select-id="name" md-auto-select ng-repeat="bookstore in bookstores | limitTo: query.limit : (query.page - 1) * query.limit">
+      <tr md-row md-select="bookstore" md-select-id="name" md-auto-select ng-repeat="bookstore in bookstores | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
         <td md-cell>{{bookstore.id}}</td>
         <td md-cell>{{bookstore.phone}}</td>
         <td md-cell>{{bookstore.street}}, {{bookstore.city}}, {{bookstore.country}}</td>

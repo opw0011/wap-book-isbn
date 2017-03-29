@@ -19,7 +19,7 @@ angular.module('isbnCheckerApp')
     $scope.bookstores = [];
 
     // pagination options
-    $scope.limitOptions = [5, 10, 15, {
+    $scope.limitOptions = [5, 10, 25, 50, {
       label: 'All',
       value: function () {
         return $scope.bookstores ? $scope.bookstores.length : 0;
@@ -28,8 +28,9 @@ angular.module('isbnCheckerApp')
     
     $scope.query = {
       order: 'name',
-      limit: 5,
-      page: 1
+      limit: 10,
+      page: 1,
+      filter: ''
     };
     
     function success(bookstores) {
