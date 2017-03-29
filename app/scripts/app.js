@@ -29,6 +29,16 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/purchase-new', {
+        templateUrl: 'views/purchase-new.html',
+        controller: 'PurchaseNewCtrl',
+        controllerAs: 'purchaseNew'
+      })
+      .when('/purchase-refill', {
+        templateUrl: 'views/purchase-refill.html',
+        controller: 'PurchaseRefillCtrl',
+        controllerAs: 'purchaseRefill'
+      })
       .otherwise({
         redirectTo: '/'
       });
