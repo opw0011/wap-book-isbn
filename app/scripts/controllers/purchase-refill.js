@@ -53,6 +53,7 @@ angular.module('isbnCheckerApp')
   
   $scope.handleViewButtonClicked = function(id) {
     console.log("bookstore id: ", id);
+    
   }
 
   });

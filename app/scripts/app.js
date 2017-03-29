@@ -41,6 +41,11 @@ angular
         controller: 'PurchaseRefillCtrl',
         controllerAs: 'purchaseRefill'
       })
+      .when('/books/:store_id', {
+        templateUrl: 'views/books.html',
+        controller: 'BooksCtrl',
+        controllerAs: 'books'
+      })
       .otherwise({
         redirectTo: '/'
       });
