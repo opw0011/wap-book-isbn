@@ -8,12 +8,7 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('PurchaseRefillCtrl', function ($scope, $http, $timeout) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('PurchaseRefillCtrl', function ($scope, $http, $timeout, APP_BASE_URL) {
 
     $scope.selected = [];
     $scope.bookstores = [];
@@ -24,36 +19,25 @@ angular.module('isbnCheckerApp')
       value: function () {
         return $scope.bookstores ? $scope.bookstores.length : 0;
       }
-  }];
-    
+    }];
+
     $scope.query = {
       order: 'name',
       limit: 10,
       page: 1,
       filter: ''
     };
-    
-    function success(bookstores) {
-      $scope.bookstores = bookstores;
-    }
-    
-    const BASE_URL = "http://127.0.0.1:3000/";
 
-    $scope.getDesserts = function () {
-      
-      // $scope.promise = $nutrition.desserts.get($scope.query, success).$promise;
-    };
-    $http.get(BASE_URL + 'bookstores').then(function(boostores) {
+    $http.get(APP_BASE_URL + 'bookstores').then(function (boostores) {
       console.log(boostores);
       $scope.bookstores = boostores.data;
-    //   $scope.promise = $timeout(function () {
-    //       $scope.desserts = posts.data;
-    // }, 1000);
-  })
-  
-  $scope.handleViewButtonClicked = function(id) {
-    console.log("bookstore id: ", id);
-    
-  }
+      //   $scope.promise = $timeout(function () {
+      //       $scope.desserts = posts.data;
+      // }, 1000);
+    })
+
+    $scope.handleViewButtonClicked = function (id) {
+      console.log("bookstore id: ", id);
+    }
 
   });

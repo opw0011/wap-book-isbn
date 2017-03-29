@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('isbnCheckerApp', [
     'ngAnimate',
     'ngCookies',
@@ -18,37 +18,40 @@ angular
     'ngTouch',
     'ngMaterial',
     'md.data.table'
-  ])
-  .config(function ($routeProvider, $locationProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .when('/purchase-new', {
-        templateUrl: 'views/purchase-new.html',
-        controller: 'PurchaseNewCtrl',
-        controllerAs: 'purchaseNew'
-      })
-      .when('/purchase-refill', {
-        templateUrl: 'views/purchase-refill.html',
-        controller: 'PurchaseRefillCtrl',
-        controllerAs: 'purchaseRefill'
-      })
-      .when('/books/:store_id', {
-        templateUrl: 'views/books.html',
-        controller: 'BooksCtrl',
-        controllerAs: 'books'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+  ]);
 
-      $locationProvider.hashPrefix('');
-  });
+app.constant('APP_BASE_URL', 'http://127.0.0.1:3000/');
+
+app.config(function ($routeProvider, $locationProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl',
+      controllerAs: 'main'
+    })
+    .when('/about', {
+      templateUrl: 'views/about.html',
+      controller: 'AboutCtrl',
+      controllerAs: 'about'
+    })
+    .when('/purchase-new', {
+      templateUrl: 'views/purchase-new.html',
+      controller: 'PurchaseNewCtrl',
+      controllerAs: 'purchaseNew'
+    })
+    .when('/purchase-refill', {
+      templateUrl: 'views/purchase-refill.html',
+      controller: 'PurchaseRefillCtrl',
+      controllerAs: 'purchaseRefill'
+    })
+    .when('/books/:store_id', {
+      templateUrl: 'views/books.html',
+      controller: 'BooksCtrl',
+      controllerAs: 'books'
+    })
+    .otherwise({
+      redirectTo: '/'
+    });
+
+    $locationProvider.hashPrefix('');
+});
