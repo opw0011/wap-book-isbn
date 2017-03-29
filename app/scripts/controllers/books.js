@@ -8,10 +8,11 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('BooksCtrl', function ($routeParams, $scope, $http, $timeout, APP_BASE_URL) {
+  .controller('BooksCtrl', function ($routeParams, $scope, $http, $timeout, $location, APP_BASE_URL) {
     var storeID = $routeParams.store_id;
     console.log("bookstore id: ", storeID);
 
+    $scope.bookstore = {};
     $scope.books = [];
 
     // pagination options
@@ -29,8 +30,16 @@ angular.module('isbnCheckerApp')
       filter: ''
     };
 
+    // get bookstore information
+    $http.get(APP_BASE_URL + 'bookstores?id=' + storeID).then(function(store) {
+      $scope.bookstore = store.data[0];
+      console.log($scope.bookstore);
+    });
+
+    // get books list
     $http.get(APP_BASE_URL + 'books?store_id=' + storeID).then(function(books) {
       $scope.books = books.data;
-      console.log($scope.books, Array.isArray($scope.books));
+      console.log($scope.books);
     });
+
   });

@@ -1,11 +1,15 @@
 <div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Hints:</strong> Select a bookstore to view the inventory
+    <strong>Hints:</strong> Manage the book inventory of that storebook
 </div>
 
 <md-toolbar class="md-table-toolbar md-default" ng-show="!options.rowSelection || !selected.length">
   <div class="md-toolbar-tools">
-    <span>Inventory list of bookstore {{storeID}}</span>
+    <!--<md-button class="md-raised md-primary">Back</md-button>-->
+    <md-button class="md-icon-button" ng-click="clickLink('/purchase-refill')">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </md-button>
+    <span>Inventory list of bookstore {{bookstore.id}} <small>({{bookstore.street}}, {{bookstore.city}}, {{bookstore.country}})</small></span>
     <span flex></span>
     <md-button class="md-icon-button" ng-click="loadStuff()">
       <!--<md-icon>refresh</md-icon>-->

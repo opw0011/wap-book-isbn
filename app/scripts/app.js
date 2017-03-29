@@ -55,3 +55,12 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $locationProvider.hashPrefix('');
 });
+
+/**
+ * Global routing functions
+ */
+app.run(function($rootScope, $location) {
+  $rootScope.clickLink = function(path) {
+      $location.path(path);
+    };
+});
