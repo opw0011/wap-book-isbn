@@ -19,13 +19,20 @@ angular.module('isbnCheckerApp')
 
     $scope.search = function(isbn) {
       console.log(isbn);
-      $http.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn).then(function(res) {
+      
+      // const GOOGLE_BOOK_API = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+      var DOUBAN_BOOK_API = 'https://api.douban.com/v2/book/isbn/';
+
+      $http.get(DOUBAN_BOOK_API + isbn).then(function(res) {
         console.log(res.data);
         $scope.book = res.data;
       }, function(err) {
-        console.log(err);
+        if(err) {
+          console.log(err);
+          document.alert('book not found');
+        }
       });
-    }
+    };
 
 
   });
