@@ -22,7 +22,7 @@ angular.module('isbnCheckerApp')
     $scope.limitOptions = [5, 10, 15, {
       label: 'All',
       value: function () {
-        return $scope.bookstores ? $scope.bookstores.count : 0;
+        return $scope.bookstores ? $scope.bookstores.length : 0;
       }
   }];
     
@@ -48,6 +48,10 @@ angular.module('isbnCheckerApp')
     //   $scope.promise = $timeout(function () {
     //       $scope.desserts = posts.data;
     // }, 1000);
-    })
+  })
+  
+  $scope.handleViewButtonClicked = function(id) {
+    console.log("bookstore id: ", id);
+  }
 
   });

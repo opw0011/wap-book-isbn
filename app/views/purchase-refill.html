@@ -1,9 +1,30 @@
 <!--<p>This is the purchase-refill view.</p>-->
-<md-toolbar class="md-table-toolbar md-default">
+<!--<md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools">
     <span>Bookstores list</span>
   </div>
+</md-toolbar>-->
+
+<md-toolbar class="md-table-toolbar md-default" ng-show="!options.rowSelection || !selected.length">
+  <div class="md-toolbar-tools">
+    <span>Bookstores list</span>
+    <span flex></span>
+    <md-button class="md-icon-button" ng-click="loadStuff()">
+      <md-icon>refresh</md-icon>
+    </md-button>
+    <md-button class="md-icon-button">
+      <md-icon>filter_list</md-icon>
+    </md-button>
+    <md-button class="md-icon-button">
+      <md-icon>more_vert</md-icon>
+    </md-button>
+  </div>
 </md-toolbar>
+
+<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Hints:</strong> Select a bookstore to view the inventory
+</div>
 
 <!-- exact table from live demo -->
 <md-table-container>
@@ -12,7 +33,9 @@
       <tr md-row>
         <th md-column md-order-by="nameToLower"><span>Bookstore ID</span></th>
         <th md-column><span>Tel</span></th>
-        <th md-column><span>Address</span></th>        
+        <th md-column><span>Address</span></th> 
+        <th md-column><span>Status</span></th>                               
+        <th md-column><span>Actions</span></th>                       
         <!--<th md-column md-numeric>Fat (g)</th>
         <th md-column md-numeric>Carbs (g)</th>
         <th md-column md-numeric>Protein (g)</th>
@@ -22,10 +45,17 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="bookstore" md-select-id="name" md-auto-select ng-repeat="bookstore in bookstores">
+      <tr md-row md-select="bookstore" md-select-id="name" md-auto-select ng-repeat="bookstore in bookstores | limitTo: query.limit : (query.page - 1) * query.limit">
         <td md-cell>{{bookstore.id}}</td>
         <td md-cell>{{bookstore.phone}}</td>
         <td md-cell>{{bookstore.street}}, {{bookstore.city}}, {{bookstore.country}}</td>
+        <td md-cell>
+           <span class="label label-warning" ng-if="bookstore.id % 5 == 0">{{bookstore.id * 7 % 13 + 1}} out of stock </span>            
+           <span class="label label-success" ng-if="bookstore.id % 5 != 0">ok</span>
+        </td>  
+        <td md-cell>
+            <button type="button" class="btn btn-info btn-xs" ng-click="handleViewButtonClicked(bookstore.id);">View Inventory</button>
+        </td>        
         <!--<td md-cell>{{bookstore.fat.value | number: 1}}</td>-->
         <!--<td md-cell>{{bookstore.carbs.value}}</td>
         <td md-cell>{{bookstore.protein.value | number: 1}}</td>
@@ -38,4 +68,4 @@
 </md-table-container>
 
 <!-- how to change the pagination label -->
-<md-table-pagination md-label="{page: 'Page:', rowsPerPage: 'Rows per page:', of: 'en'}" md-limit-options="limitOptions"></md-table-pagination>
+<md-table-pagination md-label="{page: 'Page:', rowsPerPage: 'Rows per page:', of: 'of'}" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{bookstores.length}}"></md-table-pagination>
