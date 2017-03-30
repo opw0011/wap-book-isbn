@@ -34,44 +34,21 @@ angular.module('isbnCheckerApp')
     $scope.addProduct = function (event) {
       event.stopPropagation();  // prevent auto check the row
 
-      $scope.items = [1,2,3,45];
        var parentEl = angular.element(document.body);
        $mdDialog.show({
          parent: parentEl,
          targetEvent: event,
-         template:
-           '<md-dialog aria-label="List dialog">' +
-           '  <md-dialog-content>'+
-           '    <md-list>'+
-           '      <md-list-item ng-repeat="item in items">'+
-           '       <p>Number {{item}}</p>' +
-           '      '+
-           '    </md-list-item></md-list>'+
-           '  </md-dialog-content>' +
-           '  <md-dialog-actions>' +
-           '    <md-button ng-click="closeDialog()" class="md-primary">' +
-           '      Close Dialog' +
-           '    </md-button>' +
-           '  </md-dialog-actions>' +
-           '</md-dialog>',
+         templateUrl: 'views/add-product-dialog.html',
          locals: {
-           items: $scope.items
+           storeID: storeID
          },
-         controller: DialogController
+         controller: 'AddProductCtrl'
       });
-
-      function DialogController($scope, $mdDialog, items) {
-        $scope.items = items;
-        $scope.closeDialog = function() {
-          $mdDialog.hide();
-        }
-      }
-    
     }
 
     $scope.editQuantity = function (event, book) {
       event.stopPropagation();
-      
+
       var promise = $mdEditDialog.large({
         title: "Edit product quantity",
         type: "number",
@@ -91,15 +68,23 @@ angular.module('isbnCheckerApp')
     }
 
     // get bookstore information
-    $http.get(APP_BASE_URL + 'bookstores?id=' + storeID).then(function(store) {
-      $scope.bookstore = store.data[0];
-      console.log($scope.bookstore);
-    });
+    $scope.reload = function() {
+      // get books list
+      $scope.promise = $http.get(APP_BASE_URL + 'books?store_id=' + storeID).then(function(books) {
+        $scope.books = books.data;
+        console.log($scope.books);
+      });
+    }
 
-    // get books list
-    $http.get(APP_BASE_URL + 'books?store_id=' + storeID).then(function(books) {
-      $scope.books = books.data;
-      console.log($scope.books);
-    });
+    function init() {
+      $http.get(APP_BASE_URL + 'bookstores?id=' + storeID).then(function(store) {
+        $scope.bookstore = store.data[0];
+        console.log($scope.bookstore);
+      });
+
+      $scope.reload();
+    }
+
+    init();
 
   });

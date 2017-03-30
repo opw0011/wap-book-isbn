@@ -1,0 +1,57 @@
+<md-dialog aria-label="Add product dialog" ng-init="book = {}"> 
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add new item to inventory</h2>
+        </div>
+    </md-toolbar>
+    <form name="newItemForm">
+    <md-dialog-content style="padding: 15px;">
+        
+        <span flex></span>
+
+        <md-input-container class="md-block">
+            <label>Book ID</label>
+            <input ng-model="book.product_id" type="number" required>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Book Name</label>
+            <input ng-model="book.name" md-maxlength="100" required>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Book Category</label>
+            <input ng-model="book.category" md-maxlength="15" required>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>Book Publisher</label>
+            <input ng-model="book.publisher" md-maxlength="50" required>
+        </md-input-container>
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block">
+                <label>Book Quantity</label>
+                <input ng-model="book.quantity" type="number" step="1" min="1" required>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Book Selling Price</label>
+                <input ng-model="book.price" type="number" step="0.01" min="0.01" required>
+            </md-input-container>
+        </div>
+        
+    </md-dialog-content> 
+
+    <md-dialog-actions> 
+        <!--<md-button ng-click="createItem(book)" class="md-raised md-primary" ng-disabled="!newItemForm.$invalid"> -->
+        <md-button ng-click="createItem(book)" class="md-raised md-primary" ng-disabled="newItemForm.$invalid"> 
+            Add 
+        </md-button> 
+        <md-button ng-click="closeDialog()" class="md-raised md-warn"> 
+            Cancel 
+        </md-button> 
+    </md-dialog-actions> 
+    <!--{{newItemForm.$invalid}}-->
+    </form>
+</md-dialog>

@@ -28,16 +28,24 @@ angular.module('isbnCheckerApp')
       filter: ''
     };
 
-    $http.get(APP_BASE_URL + 'bookstores').then(function (boostores) {
-      console.log(boostores);
-      $scope.bookstores = boostores.data;
-      //   $scope.promise = $timeout(function () {
-      //       $scope.desserts = posts.data;
-      // }, 1000);
-    })
-
     $scope.handleViewButtonClicked = function (id) {
       console.log("bookstore id: ", id);
     }
+
+    $scope.reload = function(){
+      $scope.promise = $http.get(APP_BASE_URL + 'bookstores').then(function (boostores) {
+        console.log(boostores);
+        $scope.bookstores = boostores.data;
+        //   $scope.promise = $timeout(function () {
+        //       $scope.desserts = posts.data;
+        // }, 1000);
+      })
+    }
+
+    function init() {
+      $scope.reload();
+    }
+
+    init();
 
   });
