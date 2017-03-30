@@ -18,7 +18,8 @@ var app = angular
     'ngTouch',
     'ngMaterial',
     'md.data.table',
-    'ng-mfb'
+    'ng-mfb',
+    'angular.filter'
   ]);
 
 app.constant('APP_BASE_URL', 'http://127.0.0.1:3000/');
