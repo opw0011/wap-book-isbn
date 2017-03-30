@@ -51,6 +51,11 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: 'BooksCtrl',
       controllerAs: 'books'
     })
+    .when('/orders', {
+      templateUrl: 'views/orders.html',
+      controller: 'OrdersCtrl',
+      controllerAs: 'orders'
+    })
     .otherwise({
       redirectTo: '/'
     });
