@@ -74,6 +74,21 @@ angular.module('isbnCheckerApp')
       // TODO: ajax batch DELETE
     }
 
+    $scope.orderSelectedItem = function(event) {
+      event.stopPropagation();
+      var parentEl = angular.element(document.body);
+      $mdDialog.show({
+        parent: parentEl,
+        targetEvent: event,
+        templateUrl: 'views/create-order-dialog.html',
+        locals: {
+          storeID: storeID,
+          books: $scope.selectedBooks
+        },
+        controller: 'CreateOrderCtrl'
+      });
+    }
+
     // get bookstore information
     $scope.reload = function() {
       // get books list

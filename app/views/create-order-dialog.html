@@ -1,0 +1,52 @@
+<md-dialog aria-label="Add product dialog" ng-init="book = {}"> 
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Create book orders</h2>
+        </div>
+    </md-toolbar>
+    <form name="newOrderForm">
+    <md-dialog-content style="padding: 15px;">
+        <div class="container" ng-repeat="(key, value) in books | groupBy: 'publisher'">
+        <!--<h2>Condensed Table</h2>-->
+        <!--<p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            -->
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Publisher</th>
+                <th>Category</th>
+                <th>Order Quantity</th>
+                <th>Stock After Order</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in value">
+                    <td>{{book.product_id}}</td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.publisher}}</td>
+                    <td>{{book.category}}</td>
+                    <td>
+                        <input type="number" ng-model="book.orderQuantity" name="orderQuantity" id="inputOrderQuantity" class="form-control" value="" min="1" max="1000" step="1" required="required" title="">
+                    </td>
+                    <td>
+                        {{book.quantity + book.orderQuantity}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        
+    </md-dialog-content> 
+
+    <md-dialog-actions> 
+        <md-button ng-click="closeDialog()" class="md-raised md-warn"> 
+            Cancel 
+        </md-button> 
+        <md-button ng-click="createItem(book)" class="md-raised md-primary" ng-disabled="newOrderForm.$invalid"> 
+            Order 
+        </md-button> 
+    </md-dialog-actions> 
+    <!--{{newOrderForm.$invalid}}-->
+    </form>
+</md-dialog>

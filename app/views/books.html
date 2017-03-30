@@ -47,9 +47,9 @@
         <th md-column md-order-by="product_id"><span>Book ID</span></th>
         <th md-column md-order-by="name"><span>Book Name</span></th>
         <th md-column md-order-by="publisher"><span>Publisher</span></th> 
-        <th md-column><span>Category</span></th>                               
-        <th md-column><span>Quantity</span></th>                       
-        <th md-column><span>Selling Price</span></th>                       
+        <th md-column md-order-by="category"><span>Category</span></th>                               
+        <th md-column md-order-by="quantity"><span>Quantity</span></th>                       
+        <th md-column md-order-by="price"><span>Selling Price</span></th>                       
       </tr>
     </thead>
     <tbody md-body>
@@ -67,16 +67,20 @@
       </tr>
     </tbody>
   </table>
+  <div ng-show="selectedBooks.length > 0"><small>Number of selected item(s): {{selectedBooks.length}}</small></div>
+  
 </md-table-container>
 
 <!-- how to change the pagination label -->
-<md-table-pagination style="justify-content: flex-start;" md-label="{page: 'Page:', rowsPerPage: 'Rows per page:', of: 'of'}" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{books.length}}"></md-table-pagination>
+<md-table-pagination style="justify-content: flex-start;" md-label="{page: 'Page:', rowsPerPage: 'Rows per page:', of: 'of'}" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{books.length}}">
+  
+</md-table-pagination>
 
 <div ng-hide="selectedBooks.length == 0">
   <nav mfb-menu position="br" effect="zoomin" label="Deselect all items" 
       active-icon="ion-close" resting-icon="ion-chevron-up"
       toggling-method="hover" ng-click="deselectAll()">
-    <button mfb-button icon="ion-ios-cart" label="Order selected items">Deselect</button>
+    <button mfb-button icon="ion-ios-cart" label="Order selected items" ng-click="orderSelectedItem($event)">Order</button>
     <button mfb-button icon="ion-trash-a" label="Delete selected items" ng-click="deleteAllSelected()">Delete</button>
   </nav>
 </div>
