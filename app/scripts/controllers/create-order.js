@@ -50,7 +50,7 @@ angular.module('isbnCheckerApp')
         console.log(key,  value);
         var order = {};
         order.publisher = key;
-        order.storeid = book.store_id;
+        order.storeid = bookstore.id;
         order.address = $scope.deliveryAddress;
         order.phone = $scope.contactNumber;
         order.createAt = new Date().toISOString();
