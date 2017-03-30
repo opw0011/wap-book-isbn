@@ -12,10 +12,6 @@ angular.module('isbnCheckerApp')
     var storeID = $routeParams.store_id;
     console.log("bookstore id: ", storeID);
 
-    $scope.bookstore = {};
-    $scope.books = [];
-    $scope.selectedBooks = [];
-
     // pagination options
     $scope.limitOptions = [5, 10, 15, 20, {
       label: 'All',
@@ -67,6 +63,17 @@ angular.module('isbnCheckerApp')
       });
     }
 
+    $scope.deselectAll = function() {
+      $scope.selectedBooks = [];
+    }
+
+    $scope.deleteAllSelected = function() {
+      var count = $scope.selectedBooks.length;
+      alert("Confirm deleting " + count + " items? ");
+
+      // TODO: ajax batch DELETE
+    }
+
     // get bookstore information
     $scope.reload = function() {
       // get books list
@@ -77,6 +84,10 @@ angular.module('isbnCheckerApp')
     }
 
     function init() {
+      $scope.bookstore = {};
+      $scope.books = [];
+      $scope.selectedBooks = [];
+
       $http.get(APP_BASE_URL + 'bookstores?id=' + storeID).then(function(store) {
         $scope.bookstore = store.data[0];
         console.log($scope.bookstore);

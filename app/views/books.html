@@ -53,7 +53,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="book" md-select-id="name" md-auto-select ng-repeat="book in books | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+      <tr md-row md-select="book" md-select-id="book.id" md-auto-select ng-repeat="book in books | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
         <td md-cell>{{book.product_id}}</td>
         <td md-cell>{{book.name}}</td>
         <td md-cell>{{book.publisher}}</td>
@@ -70,4 +70,13 @@
 </md-table-container>
 
 <!-- how to change the pagination label -->
-<md-table-pagination md-label="{page: 'Page:', rowsPerPage: 'Rows per page:', of: 'of'}" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{books.length}}"></md-table-pagination>
+<md-table-pagination style="justify-content: flex-start;" md-label="{page: 'Page:', rowsPerPage: 'Rows per page:', of: 'of'}" md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{books.length}}"></md-table-pagination>
+
+<div ng-hide="selectedBooks.length == 0">
+  <nav mfb-menu position="br" effect="zoomin" label="Deselect all items" 
+      active-icon="ion-close" resting-icon="ion-chevron-up"
+      toggling-method="hover" ng-click="deselectAll()">
+    <button mfb-button icon="ion-ios-cart" label="Order selected items">Deselect</button>
+    <button mfb-button icon="ion-trash-a" label="Delete selected items" ng-click="deleteAllSelected()">Delete</button>
+  </nav>
+</div>

@@ -17,7 +17,8 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'ngMaterial',
-    'md.data.table'
+    'md.data.table',
+    'ng-mfb'
   ]);
 
 app.constant('APP_BASE_URL', 'http://127.0.0.1:3000/');
