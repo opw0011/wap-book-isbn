@@ -6,7 +6,17 @@
     </md-toolbar>
     <form name="newOrderForm">
     <md-dialog-content style="padding: 15px;">
-        <div class="container" ng-repeat="(key, value) in books | groupBy: 'publisher'">
+        <div class="input-group">
+            <div class="input-group-addon">Delivery Address</div>
+            <input type="text" name="" id="inputAddress" class="form-control" value="" required="required" pattern="" title="" ng-model="deliveryAddress" placeholder="Address">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">Contact Number</div>
+            <input type="text" name="" id="inputPhone" class="form-control" value="" required="required" pattern="" title="" ng-model="contactNumber" placeholder="Phone number">
+        </div>
+        
+        
+        <div class="container-fluid" ng-repeat="(key, value) in books | groupBy: 'publisher'">
         <h3>{{key}}</h3>
         <!--<p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            -->
         <table class="table table-condensed">

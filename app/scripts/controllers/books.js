@@ -82,7 +82,7 @@ angular.module('isbnCheckerApp')
         targetEvent: event,
         templateUrl: 'views/create-order-dialog.html',
         locals: {
-          storeID: storeID,
+          bookstore: $scope.bookstore,
           books: $scope.selectedBooks
         },
         controller: 'CreateOrderCtrl'
