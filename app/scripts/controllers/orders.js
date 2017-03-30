@@ -9,8 +9,7 @@
  */
 angular.module('isbnCheckerApp')
   .controller('OrdersCtrl', function ($scope, $http, $timeout, APP_BASE_URL) {
-    $scope.selected = [];
-    $scope.orders = [];
+
 
     // pagination options
     $scope.limitOptions = [5, 10, 25, 50, {
@@ -42,6 +41,8 @@ angular.module('isbnCheckerApp')
     }
 
     function init() {
+      $scope.selected = [];
+      $scope.orders = [];
       $scope.reload();
     }
 

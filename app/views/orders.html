@@ -42,8 +42,7 @@
 </md-toolbar>
 
 
-<!-- exact table from live demo -->
-<md-table-container>
+<md-table-container ng-init="orders = []">
   <!--<table md-table md-row-select multiple ng-model="selected" md-progress="promise">-->
   <table md-table md-progress="promise">
     <thead md-head md-order="query.order" md-on-reorder="getDesserts">
