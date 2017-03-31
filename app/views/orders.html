@@ -48,12 +48,12 @@
     <thead md-head md-order="query.order" md-on-reorder="getDesserts">
       <tr md-row>
         <th md-column md-order-by="id"><span>Order ID</span></th>
-        <th md-column><span>Publisher</span></th>                               
+        <th md-column md-order-by="publisher"><span>Publisher</span></th>                               
         <th md-column><span>Store ID</span></th>                               
         <th md-column><span>Delivery Address</span></th>                               
-        <th md-column><span>Status</span></th>    
+        <th md-column md-order-by="status"><span>Status</span></th>    
         <th md-column><span># of items</span></th>                                                                  
-        <th md-column><span>Created at</span></th>                       
+        <th md-column md-order-by="createAt"><span>Created at</span></th>                       
         <th md-column><span>Action</span></th>                       
       </tr>
     </thead>
@@ -63,9 +63,9 @@
         <td md-cell>{{order.publisher}}</td> 
         <td md-cell>{{order.storeid}}</td>        
         <td md-cell>{{order.address}}</td>        
-        <td md-cell>{{order.status}}</td>
+        <td md-cell>{{order.status | orderStatus}}</td>
         <td md-cell>{{order.books.length}}</td>
-        <td md-cell>{{order.createAt | date:'H:mm:ss, d MMM yyyy' }}</td>
+        <td md-cell>{{order.createAt | date:'d MMM yyyy, H:mm:ss' }}</td>
         <td md-cell>
           <a class="btn btn-info btn-xs" href="" role="button" ng-click="viewSelectedOrder($event, order)">Manage Order</a>
           <!--<a class="btn btn-success btn-xs" href="" role="button">Confirm Order</a>-->

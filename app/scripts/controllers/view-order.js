@@ -8,15 +8,9 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('ViewOrderCtrl', function ($scope, $mdDialog, $http, APP_BASE_URL, order) {
+  .controller('ViewOrderCtrl', function ($scope, $mdDialog, $http, $filter, APP_BASE_URL, order) {
     $scope.closeDialog = function() {
       $mdDialog.hide();
-    }
-
-    function init() {
-      console.log("dialog receive orders: ", order);
-      $scope.order = order;
-      $scope.order.totalAmount = 0;
     }
 
     function calacualteTotalAmountToPay(books) {
@@ -34,8 +28,21 @@ angular.module('isbnCheckerApp')
         // console.log(newValue);
         var newSum = calacualteTotalAmountToPay(newValue);
         // console.log(newSum);
-        $scope.order.totalAmount = newSum;
+        // round to 2 digit
+        $scope.order.totalAmount = Math.round(newSum * 100) / 100;
     }, true);
+
+
+    // parse ISO date string to Date object
+    $scope.parseDate = function(iso){
+      return Date.parse(iso);
+    }
+
+    function init() {
+      console.log("dialog receive orders: ", order);
+      $scope.order = order;
+      $scope.order.totalAmount = 0;
+    }
 
     init();
   });

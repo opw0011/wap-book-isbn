@@ -1,17 +1,23 @@
-<p>This is the view-order-dialog view.</p>
 <md-dialog aria-label="Add product dialog" ng-init="book = {}"> 
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>View book order</h2>
+            <h2>Manage book order</h2>
         </div>
     </md-toolbar>
     <form name="newOrderForm">
-    <md-dialog-content style="padding: 15px;">
+    <md-dialog-content style="padding: 15px;">   
+        <div>
+            <span class="label label-info">{{ order.status | orderStatus }}</span>
+            <span class="label label-default pull-right">Created At: {{ order.createAt | date:'d MMM yyyy, H:mm:ss' }}</span>
+        </div>
+     
         <h3>{{ order.publisher }}</h3>
-        <div class="input-group">
+        
+        
+        <!--<div class="input-group">
             <div class="input-group-addon">Order created at</div>
             <input type="text" name="" id="inputDate" class="form-control" value="" required="required" pattern="" title="" ng-model="order.createAt" placeholder="time">
-        </div>
+        </div>-->
         <div class="input-group">
             <div class="input-group-addon">Delivery Address</div>
             <input type="text" name="" id="inputAddress" class="form-control" value="" required="required" pattern="" title="" ng-model="order.address" placeholder="Address">
@@ -21,9 +27,10 @@
             <input type="text" name="" id="inputPhone" class="form-control" value="" required="required" pattern="" title="" ng-model="order.phone" placeholder="Phone number">
         </div>
         
+        <hr/>
         
         <div class="container-fluid">
-        <h3>{{key}}</h3>
+        <h4>Ordered Books</h4>
         <!--<p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            -->
         <table class="table table-condensed">
             <thead>
@@ -51,14 +58,14 @@
                     </td>
                     <td>
                         <span ng-show="book.price == null">0</span>
-                        <span ng-show="book.price > 0">{{ book.quantity * book.price }}</span>
+                        <span ng-show="book.price > 0">{{ book.quantity * book.price | number : 2}}</span>
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <div class="input-group">
-            <div class="input-group-addon">Total amount to pay: </div>
+            <div class="input-group-addon">Total amount (USD): </div>
             <input type="number" name="" id="" class="form-control" value="" required="required" pattern="" title="" ng-model="order.totalAmount" placeholder="Total amount" readonly step="0.01">
         </div>
         </div>
