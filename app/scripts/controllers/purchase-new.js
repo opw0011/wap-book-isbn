@@ -13,17 +13,8 @@ angular.module('isbnCheckerApp')
 
     $scope.search = function(isbn) {
       console.log(isbn);
-      var GOOGLE_BOOK_API = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
       var DOUBAN_BOOK_API = 'https://api.douban.com/v2/book/isbn/';
-      // $http.get(GOOGLE_BOOK_API + isbn).then(function(res) {
-      //   console.log(res.data);
-      //   $scope.book = res.data;
-      // }, function(err) {
-      //   if(err) {
-      //     console.log(err);
-      //     document.alert('book not found');
-      //   }
-      // });
+
       var requestURL = DOUBAN_BOOK_API + isbn;
       $.ajax({
           url : requestURL,
@@ -32,9 +23,29 @@ angular.module('isbnCheckerApp')
           success : function(res){ 
               // update the $scope variable
               $scope.$apply(function() {
-                $scope.book = res;
+                $scope.books = [];
+                $scope.books.push(res);
               });
-              console.log($scope.book);
+              console.log($scope.books);
+          }   
+      }); 
+    };
+
+    $scope.searchByKeyword = function(keyword) {
+      console.log(keyword);
+
+      var DOUBAN_BOOK_SEARCH_API = 'https://api.douban.com/v2/book/search?q=';
+      var requestURL = DOUBAN_BOOK_SEARCH_API + keyword;
+      $.ajax({
+          url : requestURL,
+          dataType : 'jsonp',
+          jsonp: 'callback',
+          success : function(res){ 
+              // update the $scope variable
+              $scope.$apply(function() {
+                $scope.books = res.books;
+              });
+              console.log($scope.books);
           }   
       }); 
     };
