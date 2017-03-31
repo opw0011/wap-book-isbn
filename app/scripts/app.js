@@ -74,6 +74,7 @@ app.config(function ($routeProvider, $locationProvider) {
  */
 app.run(function($rootScope, $location) {
   $rootScope.clickLink = function(path) {
+      console.log("clickLink direct to ", path);
       $location.path(path);
     };
 });

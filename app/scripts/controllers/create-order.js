@@ -8,7 +8,7 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('CreateOrderCtrl', function ($scope, $mdDialog, $http, $filter, APP_BASE_URL, bookstore, books) {
+  .controller('CreateOrderCtrl', function ($scope, $location, $mdDialog, $http, $filter, $timeout, APP_BASE_URL, bookstore, books) {
     $scope.closeDialog = function() {
       $mdDialog.hide();
     }
@@ -22,7 +22,6 @@ angular.module('isbnCheckerApp')
     }
 
     init();
-
 
     $scope.createOrder = function(books) {
       // loop through all the books, generate the order grouped by book publishers
@@ -72,6 +71,14 @@ angular.module('isbnCheckerApp')
         });
       }
 
-      $mdDialog.hide();
+      // clear the books
+      $scope.books = [];
+
+      // TODO: refactor to waiting all ajax calls resolve promise
+      setTimeout(function() {
+          $location.path('/orders').search({ 'status' : 0, 'storeid' : bookstore.id });
+          $mdDialog.hide();
+      }, 1000);
+    
     }
   });

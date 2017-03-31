@@ -8,7 +8,7 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, $location) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -33,6 +33,10 @@ angular.module('isbnCheckerApp')
         }
       });
     };
+
+    $scope.test = function() {
+      $location.path('/orders').search({ 'storeid' : 1, 'status' : 0 });
+    }
 
 
   });
