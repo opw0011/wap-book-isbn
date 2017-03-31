@@ -8,8 +8,7 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('OrdersCtrl', function ($scope, $http, $timeout, $mdDialog, APP_BASE_URL) {
-
+  .controller('OrdersCtrl', function ($scope, $location, $http, $timeout, $mdDialog, APP_BASE_URL) {
 
     // pagination options
     $scope.limitOptions = [5, 10, 25, 50, {
@@ -31,12 +30,25 @@ angular.module('isbnCheckerApp')
     }
 
     $scope.reload = function(){
-      $scope.promise = $http.get(APP_BASE_URL + 'orders').then(function (orders) {
+
+      // see if there are any filter param in the url
+      var additionalParams;
+      if($location.search() != null) {
+        additionalParams = '?';
+
+        if($location.search().storeid) {
+          additionalParams += ('storeid=' +  $location.search().storeid)
+        }
+
+        if($location.search().status) {
+          if(additionalParams != '?') additionalParams += '&';
+          additionalParams += ('status=' +  $location.search().status)
+        }
+      }
+
+      $scope.promise = $http.get(APP_BASE_URL + 'orders' + additionalParams).then(function (orders) {
         console.log(orders);
         $scope.orders = orders.data;
-        //   $scope.promise = $timeout(function () {
-        //       $scope.desserts = posts.data;
-        // }, 1000);
       })
     }
 
@@ -48,8 +60,6 @@ angular.module('isbnCheckerApp')
         targetEvent: event,
         templateUrl: 'views/view-order-dialog.html',
         locals: {
-          // bookstore: $scope.bookstore,
-          // books: $scope.selectedBooks
           order: order
         },
         controller: 'ViewOrderCtrl'
