@@ -44,16 +44,55 @@ angular.module('isbnCheckerApp')
 
       order.status++; // proceed to the next operation stage
 
-      // order status is 'finish', append the finish date time
+      // order status is 'finish'
       if(order.status == 2) {
+        // append the finish date time
         order.finishAt = new Date().toISOString();
+
+        // Add the quantity to each books 
+        // var lastPromise;
+        // var index = 0;
+        for(var book of order.books) {
+          // index++;
+          // book.booid is product_id only!
+          var promise = $http.get(APP_BASE_URL + 'books?store_id=' + order.storeid + '&product_id='+ book.bookid);
+          
+          promise.then(function(res) {
+            var stockQuantity = res.data[0].quantity;
+            var bookuid = res.data[0].id;
+
+            var newQuantity = book.quantity + stockQuantity;
+            console.log(stockQuantity, newQuantity);
+            // Patch the quantity
+            $http.patch(APP_BASE_URL + 'books/' + bookuid, { 
+              "quantity" : newQuantity
+            });
+
+
+          }, function(bookNotFound) {
+            // This is a new book item
+            console.log("Not found ", book.bookid);
+            var newbook = {
+              "product_id" : book.bookid,
+              "store_id" : order.storeid,
+              "name" : book.bookName,
+              "quantity" : book.quantity
+            };
+            console.log("new book", newbook);
+            // POST new book to db
+            $http.post(APP_BASE_URL + 'books/', newbook);
+          });
+        }
       }
 
-      // PUT ajax call
-      $http.put(APP_BASE_URL + 'orders/' + order.id, order).then(function(order) {
-        console.log(order.data);
-        $mdDialog.hide();
-      });
+      // TODO: refactor to use promise
+      setTimeout(function() {
+        $http.put(APP_BASE_URL + 'orders/' + order.id, order).then(function(order) {
+          console.log(order.data);
+          $mdDialog.hide();
+        });
+      }, 1500);
+
     }
 
     $scope.onChangeDeliveryDate = function(newValue, oldValue) {
