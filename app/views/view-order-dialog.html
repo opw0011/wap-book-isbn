@@ -9,6 +9,8 @@
         <div>
             <span class="label label-info">{{ order.status | orderStatus }}</span>
             <span class="label label-default pull-right">Created At: {{ order.createAt | date:'d MMM yyyy, H:mm:ss' }}</span>
+            <span class="label label-warning pull-right" ng-show = "order.deliverAt != null">Deliver At: {{ order.deliverAt | date:'d MMM yyyy, H:mm:ss' }}</span>
+            <span class="label label-success pull-right" ng-show = "order.finishAt != null">Finished At: {{ order.deliverAt | date:'d MMM yyyy, H:mm:ss' }}</span>
         </div>
      
         <h3>{{ order.publisher }}</h3>
@@ -20,11 +22,11 @@
         </div>-->
         <div class="input-group">
             <div class="input-group-addon">Delivery Address</div>
-            <input type="text" name="" id="inputAddress" class="form-control" value="" required="required" pattern="" title="" ng-model="order.address" placeholder="Address">
+            <input type="text" name="" id="inputAddress" class="form-control" value="" required="required" pattern="" title="" ng-model="order.address" placeholder="Address" ng-disabled="order.status != 0">
         </div>
         <div class="input-group">
             <div class="input-group-addon">Contact Number</div>
-            <input type="text" name="" id="inputPhone" class="form-control" value="" required="required" pattern="" title="" ng-model="order.phone" placeholder="Phone number">
+            <input type="text" name="" id="inputPhone" class="form-control" value="" required="required" pattern="" title="" ng-model="order.phone" placeholder="Phone number" ng-disabled="order.status != 0">
         </div>
         
         <hr/>
@@ -51,10 +53,10 @@
                     <!--<td>{{book.publisher}}</td>-->
                     <!--<td>{{book.category}}</td>-->
                     <td>
-                        <input type="number" ng-model="book.quantity" name="orderQuantity" id="inputOrderQuantity" class="form-control" value="" min="1" max="1000" step="1" required="required" title="">
+                        <input type="number" ng-model="book.quantity" name="orderQuantity" id="inputOrderQuantity" class="form-control" value="" min="1" max="1000" step="1" required="required" title="" ng-disabled="order.status != 0">
                     </td>
                     <td>
-                        <input type="number" ng-model="book.price" name="orderQuantity" id="inputPrice" class="form-control" value="" min="0.01" max="1000" step="0.01" required="required" title="">
+                        <input type="number" ng-model="book.price" name="orderQuantity" id="inputPrice" class="form-control" value="" min="0.01" max="1000" step="0.01" required="required" title="" ng-disabled="order.status != 0">
                     </td>
                     <td>
                         <span ng-show="book.price == null">0</span>
@@ -74,13 +76,30 @@
             <div class="input-group-addon">Total amount (USD): </div>
             <input type="number" name="" id="" class="form-control" value="" required="required" pattern="" title="" ng-model="order.totalAmount" placeholder="Total amount" readonly step="0.01">
         </div>-->
+        <h4 ng-show="order.status < 2">Operations</h4>
 
-        <div class="input-group">
+        <div class="input-group" ng-show="order.status == 0">
             <div class="input-group-addon">Delivery Date: </div>
             <input class="form-control" class="form-control" value="" ng-model="deliveryDateMoment" format="YYYY-MM-DD HH:mm"
-                required="required" placeholder="Select a delivery date" ng-model-options="{ updateOn: 'blur' }" 
+                ng-required="order.status == 0" placeholder="Fill in the delivery date confirmed with the book publisher" ng-model-options="{ updateOn: 'blur' }" 
                 moment-picker="deliveryDateMoment" change="onChangeDeliveryDate(newValue, oldValue)">
         </div>
+
+        <div class="input-group" ng-show="order.status == 1">
+            <div class="input-group-addon">Remarks: </div>
+            <input type="text" placeholder="Fill in any remark to this order" id="inputRemark" class="form-control" ng-model="order.remark">
+        </div>
+
+        
+        <div class="panel panel-default" ng-show="order.status == 2">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Order Remarks</h3>
+              </div>
+              <div class="panel-body">
+                    {{ order.remark }}
+              </div>
+        </div>
+        
         
     </md-dialog-content> 
 
@@ -88,7 +107,7 @@
         <md-button ng-click="closeDialog()" class="md-raised md-warn"> 
             Cancel 
         </md-button> 
-        <md-button ng-click="manageOrder(order)" class="md-raised md-primary" ng-disabled="newOrderForm.$invalid"> 
+        <md-button ng-click="manageOrder(order)" class="md-raised md-primary" ng-disabled="newOrderForm.$invalid" ng-show="order.status < 2"> 
             Confirm
         </md-button> 
     </md-dialog-actions> 

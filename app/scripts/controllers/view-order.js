@@ -27,7 +27,7 @@ angular.module('isbnCheckerApp')
     $scope.$watch('order.books', function(newValue, oldValue) {
         // console.log(newValue);
         var newSum = calacualteTotalAmountToPay(newValue);
-        // console.log(newSum);
+
         // round to 2 digit
         $scope.order.totalAmount = Math.round(newSum * 100) / 100;
     }, true);
@@ -38,8 +38,22 @@ angular.module('isbnCheckerApp')
       return Date.parse(iso);
     }
 
+    // trigger when order button is clicked
     $scope.manageOrder = function(order) {
       console.log(order);
+
+      order.status++; // proceed to the next operation stage
+
+      // order status is 'finish', append the finish date time
+      if(order.status == 2) {
+        order.finishAt = new Date().toISOString();
+      }
+
+      // PUT ajax call
+      $http.put(APP_BASE_URL + 'orders/' + order.id, order).then(function(order) {
+        console.log(order.data);
+        $mdDialog.hide();
+      });
     }
 
     $scope.onChangeDeliveryDate = function(newValue, oldValue) {
