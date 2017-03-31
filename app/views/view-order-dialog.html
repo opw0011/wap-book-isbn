@@ -64,10 +64,22 @@
             </tbody>
         </table>
 
-        <div class="input-group">
+        
+        <span class="label label-success pull-right">Subtotal (USD): {{ order.totalAmount }}</span>
+        
+        <div class="clearfix"></div>
+        
+        <hr/>
+        <!--<div class="input-group">
             <div class="input-group-addon">Total amount (USD): </div>
             <input type="number" name="" id="" class="form-control" value="" required="required" pattern="" title="" ng-model="order.totalAmount" placeholder="Total amount" readonly step="0.01">
-        </div>
+        </div>-->
+
+        <div class="input-group">
+            <div class="input-group-addon">Delivery Date: </div>
+            <input class="form-control" class="form-control" value="" ng-model="deliveryDateMoment" format="YYYY-MM-DD HH:mm"
+                required="required" placeholder="Select a delivery date" ng-model-options="{ updateOn: 'blur' }" 
+                moment-picker="deliveryDateMoment" change="onChangeDeliveryDate(newValue, oldValue)">
         </div>
         
     </md-dialog-content> 
@@ -76,7 +88,7 @@
         <md-button ng-click="closeDialog()" class="md-raised md-warn"> 
             Cancel 
         </md-button> 
-        <md-button ng-click="createOrder(books)" class="md-raised md-primary" ng-disabled="newOrderForm.$invalid"> 
+        <md-button ng-click="manageOrder(order)" class="md-raised md-primary" ng-disabled="newOrderForm.$invalid"> 
             Confirm
         </md-button> 
     </md-dialog-actions> 

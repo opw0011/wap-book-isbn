@@ -19,7 +19,8 @@ var app = angular
     'ngMaterial',
     'md.data.table',
     'ng-mfb',
-    'angular.filter'
+    'angular.filter',
+    'moment-picker'
   ]);
 
 app.constant('APP_BASE_URL', 'http://127.0.0.1:3000/');

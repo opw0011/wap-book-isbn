@@ -38,6 +38,17 @@ angular.module('isbnCheckerApp')
       return Date.parse(iso);
     }
 
+    $scope.manageOrder = function(order) {
+      console.log(order);
+    }
+
+    $scope.onChangeDeliveryDate = function(newValue, oldValue) {
+      // console.log(moment);
+      var time = newValue.toISOString();
+      console.log(time);
+      $scope.order.deliverAt = time;
+    }
+
     function init() {
       console.log("dialog receive orders: ", order);
       $scope.order = order;
