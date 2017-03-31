@@ -71,7 +71,8 @@
            <span class="label label-success" ng-if="bookstore.id % 5 != 0">ok</span>
         </td>  
         <td md-cell>
-          <a class="btn btn-info btn-xs" href="#/books/{{bookstore.id}}" role="button">View Inventory</a>
+          <a class="btn btn-danger btn-xs" href="#/books/{{bookstore.id}}" role="button">Refill Inventory</a>
+          <a class="btn btn-success btn-xs" href="#/purchase-new?storeid={{bookstore.id}}" role="button">Purchase New Books</a>
           <!--<button type="button" class="btn btn-info btn-xs" ng-click="handleViewButtonClicked(bookstore.id);">View Inventory</button>-->
         </td>        
         <!--<td md-cell>{{bookstore.fat.value | number: 1}}</td>-->

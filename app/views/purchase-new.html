@@ -25,7 +25,7 @@
       </div>
     </div>
   </div>
-  
+
 </div>
 
 <div ng-init = "searchBtnClicked = false" ng-show = "searchBtnClicked">
@@ -71,6 +71,7 @@
         <th md-column><span>Book Image</span></th>        
         <th md-column md-order-by="title"><span>Book Name</span></th>
         <th md-column md-order-by="publisher"><span>Publisher</span></th> 
+        <th md-column md-order-by="tags[0].title"><span>Category</span></th> 
         <th md-column md-order-by="author[0]"><span>Author</span></th> 
         <th md-column md-order-by="rating.average"><span>Average Rating</span></th>                               
         <th md-column md-order-by="rating.numRaters"><span># of Raters</span></th>                               
@@ -79,13 +80,14 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="book" md-select-id="book.id" md-auto-select ng-repeat="book in books | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+      <tr md-row md-select="book" md-select-id="book.id" md-auto-select ng-repeat="book in books | filter: query.filter | orderBy: query.order : true | limitTo: query.limit : (query.page - 1) * query.limit">
         <td md-cell>{{book.isbn10}}</td>
         <td md-cell>
             <img ng-src="{{book.image}}" class="img-responsive" alt="Image">
         </td>
         <td md-cell>{{book.title}}</td>
         <td md-cell>{{book.publisher}}</td>
+        <td md-cell>{{book.tags[0].title}}</td>
         <td md-cell>{{book.author[0]}}</td>
         <td md-cell>{{book.rating.average}}</td>
         <td md-cell>{{book.rating.numRaters}}</td>

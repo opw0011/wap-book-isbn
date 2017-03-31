@@ -8,7 +8,13 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('PurchaseNewCtrl', function ($scope, $http) {
+  .controller('PurchaseNewCtrl', function ($scope, $http, $location, $mdDialog, APP_BASE_URL) {
+    if($location.search() != null && $location.search().storeid) {
+      $http.get(APP_BASE_URL + 'bookstores/' + $location.search().storeid).then(function (bookstore) {
+        console.log(bookstore);
+        $scope.bookstore = bookstore.data;
+      });
+    }
 
     // pagination options
     $scope.limitOptions = [5, 10, 15, {
@@ -19,7 +25,7 @@ angular.module('isbnCheckerApp')
     }];
 
     $scope.query = {
-      order: '',
+      order: 'rating.average',
       limit: 5,
       page: 1,
       filter: ''
@@ -66,6 +72,18 @@ angular.module('isbnCheckerApp')
 
     $scope.orderSelectedItem = function(event) {
       event.stopPropagation();
+
+      // TODO: change selected new books format
+      var booksToOrder = [];
+      for(var book of $scope.selectedBooks) {
+        booksToOrder.push({
+          'product_id': book.isbn10,
+          'name': book.title,
+          'publisher': book.publisher,
+          'category': book.category
+        });
+      }
+
       var parentEl = angular.element(document.body);
       $mdDialog.show({
         parent: parentEl,
@@ -73,10 +91,15 @@ angular.module('isbnCheckerApp')
         templateUrl: 'views/create-order-dialog.html',
         locals: {
           bookstore: $scope.bookstore,
-          books: $scope.selectedBooks
+          // books: $scope.selectedBooks
+          books: booksToOrder
         },
         controller: 'CreateOrderCtrl'
       });
+    }
+
+    $scope.deselectAll = function() {
+      $scope.selectedBooks = [];
     }
 
     function init() {
