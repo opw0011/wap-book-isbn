@@ -67,8 +67,8 @@
         <td md-cell>{{order.books.length}}</td>
         <td md-cell>{{order.createAt | date:'H:mm:ss, d MMM yyyy' }}</td>
         <td md-cell>
-          <a class="btn btn-info btn-xs" href="" role="button">View Order</a>
-          <a class="btn btn-success btn-xs" href="" role="button">Confirm Order</a>
+          <a class="btn btn-info btn-xs" href="" role="button" ng-click="viewSelectedOrder($event, order)">Manage Order</a>
+          <!--<a class="btn btn-success btn-xs" href="" role="button">Confirm Order</a>-->
         </td>        
       </tr>
     </tbody>

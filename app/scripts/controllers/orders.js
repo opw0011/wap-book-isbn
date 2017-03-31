@@ -8,7 +8,7 @@
  * Controller of the isbnCheckerApp
  */
 angular.module('isbnCheckerApp')
-  .controller('OrdersCtrl', function ($scope, $http, $timeout, APP_BASE_URL) {
+  .controller('OrdersCtrl', function ($scope, $http, $timeout, $mdDialog, APP_BASE_URL) {
 
 
     // pagination options
@@ -38,6 +38,22 @@ angular.module('isbnCheckerApp')
         //       $scope.desserts = posts.data;
         // }, 1000);
       })
+    }
+
+    $scope.viewSelectedOrder = function(event, order) {
+      event.stopPropagation();
+      var parentEl = angular.element(document.body);
+      $mdDialog.show({
+        parent: parentEl,
+        targetEvent: event,
+        templateUrl: 'views/view-order-dialog.html',
+        locals: {
+          // bookstore: $scope.bookstore,
+          // books: $scope.selectedBooks
+          order: order
+        },
+        controller: 'ViewOrderCtrl'
+      });
     }
 
     function init() {

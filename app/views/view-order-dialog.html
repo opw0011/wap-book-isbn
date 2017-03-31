@@ -1,0 +1,78 @@
+<p>This is the view-order-dialog view.</p>
+<md-dialog aria-label="Add product dialog" ng-init="book = {}"> 
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>View book order</h2>
+        </div>
+    </md-toolbar>
+    <form name="newOrderForm">
+    <md-dialog-content style="padding: 15px;">
+        <h3>{{ order.publisher }}</h3>
+        <div class="input-group">
+            <div class="input-group-addon">Order created at</div>
+            <input type="text" name="" id="inputDate" class="form-control" value="" required="required" pattern="" title="" ng-model="order.createAt" placeholder="time">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">Delivery Address</div>
+            <input type="text" name="" id="inputAddress" class="form-control" value="" required="required" pattern="" title="" ng-model="order.address" placeholder="Address">
+        </div>
+        <div class="input-group">
+            <div class="input-group-addon">Contact Number</div>
+            <input type="text" name="" id="inputPhone" class="form-control" value="" required="required" pattern="" title="" ng-model="order.phone" placeholder="Phone number">
+        </div>
+        
+        
+        <div class="container-fluid">
+        <h3>{{key}}</h3>
+        <!--<p>The .table-condensed class makes a table more compact by cutting cell padding in half:</p>            -->
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <!--<th>Publisher</th>-->
+                    <!--<th>Category</th>-->
+                    <th>Order Quantity</th>
+                    <th>Unit Price (USD)</th>
+                    <th>Total (USD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in order.books">
+                    <td>{{book.bookid}}</td>
+                    <td>{{book.bookName}}</td>
+                    <!--<td>{{book.publisher}}</td>-->
+                    <!--<td>{{book.category}}</td>-->
+                    <td>
+                        <input type="number" ng-model="book.quantity" name="orderQuantity" id="inputOrderQuantity" class="form-control" value="" min="1" max="1000" step="1" required="required" title="">
+                    </td>
+                    <td>
+                        <input type="number" ng-model="book.price" name="orderQuantity" id="inputPrice" class="form-control" value="" min="0.01" max="1000" step="0.01" required="required" title="">
+                    </td>
+                    <td>
+                        <span ng-show="book.price == null">0</span>
+                        <span ng-show="book.price > 0">{{ book.quantity * book.price }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="input-group">
+            <div class="input-group-addon">Total amount to pay: </div>
+            <input type="number" name="" id="" class="form-control" value="" required="required" pattern="" title="" ng-model="order.totalAmount" placeholder="Total amount" readonly step="0.01">
+        </div>
+        </div>
+        
+    </md-dialog-content> 
+
+    <md-dialog-actions> 
+        <md-button ng-click="closeDialog()" class="md-raised md-warn"> 
+            Cancel 
+        </md-button> 
+        <md-button ng-click="createOrder(books)" class="md-raised md-primary" ng-disabled="newOrderForm.$invalid"> 
+            Confirm
+        </md-button> 
+    </md-dialog-actions> 
+    <!--{{newOrderForm.$invalid}}-->
+    </form>
+</md-dialog>
