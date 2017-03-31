@@ -1,26 +1,29 @@
 <div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Hints:</strong> Search the book by keyword, select book to make order
+    <strong>Hints:</strong> Search the book by keyword, select book to make order, example ISBN: 7505715666
 </div>
 
 
 <div class="container">
-  <!--<h3>ISBN Lookup</h3>-->
-
-  <span>try: 9781119073550, 7505715666</span>
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search ISBN" ng-model="query.isbn">
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="search(query.isbn); searchBtnClicked = true">Search</button>
-    </span>
-  </div>
-
   
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Keywords Search" ng-model="query.keyword">
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="searchByKeyword(query.keyword); searchBtnClicked = true">Search</button>
-    </span>
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search ISBN" ng-model="query.isbn">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="search(query.isbn); searchBtnClicked = true">Search</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Keywords Search" ng-model="query.keyword">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="searchByKeyword(query.keyword); searchBtnClicked = true">Search</button>
+        </span>
+      </div>
+    </div>
   </div>
   
 </div>
@@ -40,9 +43,6 @@
     </md-button>
     <md-button class="md-icon-button" ng-click="filter.show = !filter.show">
       <i class="fa fa-search" aria-hidden="true"></i>
-    </md-button>
-    <md-button class="md-icon-button" ng-click="addProduct($event)">
-      <i class="fa fa-plus" aria-hidden="true"></i>
     </md-button>
   </div>
 </md-toolbar>
@@ -108,7 +108,7 @@
       active-icon="ion-close" resting-icon="ion-chevron-up"
       toggling-method="hover" ng-click="deselectAll()">
     <button mfb-button icon="ion-ios-cart" label="Order selected items" ng-click="orderSelectedItem($event)">Order</button>
-    <button mfb-button icon="ion-trash-a" label="Delete selected items" ng-click="deleteAllSelected()">Delete</button>
+    <!--<button mfb-button icon="ion-trash-a" label="Delete selected items" ng-click="deleteAllSelected()">Delete</button>-->
   </nav>
 </div>
 
