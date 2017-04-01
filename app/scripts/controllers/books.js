@@ -71,7 +71,12 @@ angular.module('isbnCheckerApp')
       var count = $scope.selectedBooks.length;
       alert("Confirm deleting " + count + " items? ");
 
-      // TODO: ajax batch DELETE
+      // ajax batch DELETE
+      for(var book of $scope.selectedBooks) {
+          $http.delete(APP_BASE_URL + 'books/' + book.id).then(function(book) {
+            console.log(book.data);
+          });
+      }
     }
 
     $scope.orderSelectedItem = function(event) {

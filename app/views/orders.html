@@ -58,7 +58,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="order in orders | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+      <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="order in orders | filter: query.filter | orderBy: query.order : true | limitTo: query.limit : (query.page - 1) * query.limit">
         <td md-cell>{{order.id}}</td>
         <td md-cell>{{order.publisher}}</td> 
         <td md-cell>{{order.storeid}}</td>        

@@ -102,6 +102,13 @@ angular.module('isbnCheckerApp')
       $scope.order.deliverAt = time;
     }
 
+    $scope.printDiv = function(divName) {
+      var w = window.open();
+      w.document.write(document.getElementById(divName).innerHTML);
+      w.print();
+      w.close();
+    }
+
     function init() {
       console.log("dialog receive orders: ", order);
       $scope.order = order;

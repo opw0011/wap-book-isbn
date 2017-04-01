@@ -67,7 +67,7 @@
         <td md-cell>{{bookstore.phone}}</td>
         <td md-cell>{{bookstore.street}}, {{bookstore.city}}, {{bookstore.country}}</td>
         <td md-cell>
-           <span class="label label-warning" ng-if="bookstore.id % 5 == 0">{{bookstore.id * 7 % 13 + 1}} out of stock </span>            
+           <span class="label label-warning" ng-if="bookstore.id % 5 == 0">{{bookstore.id * 7 % 13 + 1}} low in stock </span>            
            <span class="label label-success" ng-if="bookstore.id % 5 != 0">ok</span>
         </td>  
         <td md-cell>

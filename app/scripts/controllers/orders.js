@@ -19,7 +19,7 @@ angular.module('isbnCheckerApp')
     }];
 
     $scope.query = {
-      order: 'name',
+      order: 'createAt',
       limit: 10,
       page: 1,
       filter: ''

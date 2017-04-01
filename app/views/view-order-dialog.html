@@ -1,7 +1,12 @@
-<md-dialog aria-label="Add product dialog" ng-init="book = {}"> 
+<md-dialog aria-label="Add product dialog" ng-init="book = {}" id="printableArea"> 
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Manage book order</h2>
+            <h2> Manage book order</h2>
+            <span flex></span>
+            <button type="button" class="btn btn-sm btn-default" ng-click="printDiv('printableArea')">
+                <i class="fa fa-print" aria-hidden="true"></i>
+                Print
+            </button>
         </div>
     </md-toolbar>
     <form name="newOrderForm">
