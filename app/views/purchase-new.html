@@ -4,10 +4,21 @@
 </div>
 
 
-<div class="container">
+<div class="container-fluid">
   
   <div class="row">
-    <div class="col-sm-6 col-md-6 col-lg-6">
+    
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      
+      <button type="button" class="btn btn-default pull-left" ng-click="clickLink('/purchase-refill')">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <h4> Purchase new books</h4>
+      
+      
+    </div>
+    
+    <div class="col-sm-4 col-md-4 col-lg-4">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search ISBN" ng-model="query.isbn">
         <span class="input-group-btn">
@@ -16,7 +27,7 @@
       </div>
     </div>
 
-    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="col-sm-4 col-md-4 col-lg-4">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Keywords Search" ng-model="query.keyword">
         <span class="input-group-btn">

@@ -76,7 +76,7 @@ angular.module('isbnCheckerApp')
 
       // TODO: refactor to waiting all ajax calls resolve promise
       setTimeout(function() {
-          $location.path('/orders').search({ 'status' : 0, 'storeid' : bookstore.id });
+          $location.path('/orders').search({ 'storeid' : bookstore.id, 'status' : 0 });
           $mdDialog.hide();
       }, 1000);
     
